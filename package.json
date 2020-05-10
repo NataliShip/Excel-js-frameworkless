@@ -1,0 +1,31 @@
+{
+  "name": "excel-js-frameworkless",
+  "version": "1.0.0",
+  "description": "Pure JS Excel application",
+  "private": true,
+  "scripts": {
+    "start": "webpack",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NataliShip/Excel-js-frameworkless.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "excel",
+    "webpack"
+  ],
+  "author": "Nataliya Shipelova <natulechka_m.25@mail.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NataliShip/Excel-js-frameworkless/issues"
+  },
+  "homepage": "https://github.com/NataliShip/Excel-js-frameworkless#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
