@@ -13,6 +13,7 @@
     "object-curly-spacing": "off",
     "require-jsdoc": "off",
     "operator-linebreak": "off",
-    "no-debugger": "off"
+    "no-debugger": "off",
+    "max-len": "off"
   }
 }
