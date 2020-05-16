@@ -32,8 +32,13 @@ class Dom {
 
     return this
   }
+
+  on(eventType, callback) {
+    this.el.addEventListener(eventType, callback)
+  }
 }
 
+// static method
 dom.create = (tagName, classes = '') => {
   const el = document.createElement(tagName)
 

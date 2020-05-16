@@ -14,6 +14,7 @@ export class Excel {
       const component = new Component(container)
       container.html(component.toHTML())
       root.append(container)
+
       return component
     })
 

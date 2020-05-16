@@ -1,3 +1,5 @@
+import { getMethodName } from '@core/helpers/utils'
+
 export class DomListener {
   constructor(root, listeners = []) {
     if (!root) throw new Error('No $root provided for DomListener')
@@ -6,7 +8,10 @@ export class DomListener {
   }
 
   initDomListeners() {
-    console.log(this.listeners)
+    this.listeners.forEach(listener => {
+      const methodName = getMethodName(listener)
+      this.root.on(listener, this[methodName])
+    })
   }
 
   removeDomListeners() {
