@@ -6,8 +6,16 @@ export class Formula extends ExcelComponent {
   constructor(root) {
     super(root, {
       name: 'Formula',
-      listeners: ['input']
+      listeners: ['input', 'click']
     })
+  }
+
+  onClick(event) {
+    console.log('Formula onClick', event.target)
+  }
+
+  onInput(event) {
+    console.log('Formula onInput', event.target.textContent.trim())
   }
 
   toHTML() {
@@ -15,9 +23,5 @@ export class Formula extends ExcelComponent {
       <div class="info">fx</div>
       <div class="input" contenteditable spellcheck="false"></div>
     `
-  }
-
-  onInput(event) {
-    console.log('Formula onInput', event.target.textContent.trim())
   }
 }

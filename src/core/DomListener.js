@@ -15,11 +15,15 @@ export class DomListener {
         throw new Error(`Method ${methodName} is not implemented in ${this.name} class`)
       }
 
-      this.root.on(listener, this[methodName].bind(this))
+      this[methodName] = this[methodName].bind(this)
+      this.root.on(listener, this[methodName])
     })
   }
 
   removeDomListeners() {
-
+    this.listeners.forEach(listener => {
+      const methodName = getMethodName(listener)
+      this.root.remove(listener, this[methodName])
+    })
   }
 }

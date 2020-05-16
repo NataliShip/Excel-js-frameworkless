@@ -36,6 +36,10 @@ class Dom {
   on(eventType, callback) {
     this.el.addEventListener(eventType, callback)
   }
+
+  remove(eventType, callback) {
+    this.el.removeEventListener(eventType, callback)
+  }
 }
 
 // static method
