@@ -1,8 +1,8 @@
 import { CODES } from '@core/helpers/constants'
 
-function createCell() {
+function toCell() {
   return `
-    <div class="cell" contenteditable>A1</div>
+    <div class="cell" contenteditable></div>
   `
 }
 
@@ -12,10 +12,10 @@ function toColumn(el) {
   `
 }
 
-function createRow(content) {
+function createRow(index, content) {
   return `
     <div class='row'>
-      <div class='row-info'></div>
+      <div class='row-info'>${index || ''}</div>
       <div class='row-data'>${content}</div>
     </div>
   `
@@ -35,10 +35,15 @@ export function createTable(rowsCount = 20) {
       .map(toColumn)
       .join('')
 
-  rows.push(createRow(cols))
+  rows.push(createRow(null, cols))
 
   for (let i = 0; i < rowsCount; i += 1) {
-    rows.push(createRow())
+    const cells = new Array(colsCount)
+        .fill('')
+        .map(toCell)
+        .join('')
+
+    rows.push(createRow(i + 1, cells))
   }
 
   return rows.join('')
