@@ -8,14 +8,21 @@ function toCell() {
 
 function toColumn(el) {
   return `
-    <div class='column'>${el}</div>
+    <div class='column'>
+      ${el}
+      <div class='col-resize'></div>
+    </div>
   `
 }
 
 function createRow(index, content) {
+  const resizeElement = index ? `<div class='row-resize'></div>` : ''
   return `
     <div class='row'>
-      <div class='row-info'>${index || ''}</div>
+      <div class='row-info'>
+        ${ index || '' }
+        ${ resizeElement }
+      </div>
       <div class='row-data'>${content}</div>
     </div>
   `
