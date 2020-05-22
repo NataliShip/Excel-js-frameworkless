@@ -7,7 +7,7 @@ export class Table extends ExcelComponent {
   constructor(root, options) {
     super(root, {
       name: 'Table',
-      // listeners: ['mouseup', 'mousedown', 'mousemove']
+      listeners: ['mousedown']
     })
   }
 
@@ -15,15 +15,9 @@ export class Table extends ExcelComponent {
     return createTable(50)
   }
 
-  // onMouseup(e) {
-  //   console.log(e)
-  // }
-  //
-  // onMousedown(e) {
-  //   console.log(e)
-  // }
-  //
-  // onMousemove() {
-  //   console.log('mousemove')
-  // }
+  onMousedown(e) {
+    if (e.target.dataset.resize) {
+      console.log('start resizing', e.target.dataset.resize)
+    }
+  }
 }

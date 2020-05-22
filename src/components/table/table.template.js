@@ -10,13 +10,13 @@ function toColumn(el) {
   return `
     <div class='column'>
       ${el}
-      <div class='col-resize'></div>
+      <div class='col-resize' data-resize='col'></div>
     </div>
   `
 }
 
 function createRow(index, content) {
-  const resizeElement = index ? `<div class='row-resize'></div>` : ''
+  const resizeElement = index ? `<div class='row-resize' data-resize='row'></div>` : ''
   return `
     <div class='row'>
       <div class='row-info'>
