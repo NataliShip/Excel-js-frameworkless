@@ -21,7 +21,6 @@ export class Table extends ExcelComponent {
 
   onMousedown(e) {
     if (e.target.dataset.resize) {
-      console.log('start resizing', e.target.dataset.resize)
       this.isResizing = true
       this.x.start = e.pageX
       this.y.start = e.pageY
@@ -30,16 +29,14 @@ export class Table extends ExcelComponent {
   }
 
   onMousemove(e) {
-    if (this.target.dataset.resize && this.isResizing) {
-      console.log('resizing', e.pageX, e.pageY)
+    if (this.isResizing && this.target?.dataset?.resize) {
       this.x.current = e.pageX
       this.y.current = e.pageY
     }
   }
 
   onMouseup(e) {
-    if (this.target.dataset.resize && this.isResizing) {
-      console.log('stop resizing', this.x, this.y)
+    if (this.isResizing && this.target?.dataset?.resize) {
       this.isResizing = false
 
       if (this.target.dataset.resize === 'row') {
@@ -48,7 +45,10 @@ export class Table extends ExcelComponent {
         row.style.height = `${newHeight}px`
       }
       if (this.target.dataset.resize === 'col') {
-        console.log('col')
+        const colIndex = this.target.closest('.column')?.dataset?.index
+        const colArray = document.querySelectorAll(`[data-index="${colIndex}"]`)
+        const newWidth = this.x.current - this.x.start + this.target.closest('.column').offsetWidth
+        colArray.forEach(cell => cell.style.width = `${newWidth}px`)
       }
 
       this.x = { start: 0, current: 0 }

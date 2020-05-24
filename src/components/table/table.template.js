@@ -1,14 +1,14 @@
 import { CODES } from '@core/helpers/constants'
 
-function toCell() {
+function toCell(_, index) {
   return `
-    <div class="cell" contenteditable></div>
+    <div class='cell' data-index=${index} contenteditable></div>
   `
 }
 
-function toColumn(el) {
+function toColumn(el, index) {
   return `
-    <div class='column'>
+    <div class='column' data-index=${index}>
       ${el}
       <div class='col-resize' data-resize='col'></div>
     </div>
