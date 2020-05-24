@@ -7,8 +7,12 @@ export class Table extends ExcelComponent {
   constructor(root, options) {
     super(root, {
       name: 'Table',
-      listeners: ['mousedown']
+      listeners: ['mousedown', 'mousemove', 'mouseup']
     })
+    this.isResizing = false
+    this.target = null
+    this.x = { start: 0, current: 0 }
+    this.y = { start: 0, current: 0 }
   }
 
   toHTML() {
@@ -18,6 +22,37 @@ export class Table extends ExcelComponent {
   onMousedown(e) {
     if (e.target.dataset.resize) {
       console.log('start resizing', e.target.dataset.resize)
+      this.isResizing = true
+      this.x.start = e.pageX
+      this.y.start = e.pageY
+      this.target = e.target
+    }
+  }
+
+  onMousemove(e) {
+    if (this.target.dataset.resize && this.isResizing) {
+      console.log('resizing', e.pageX, e.pageY)
+      this.x.current = e.pageX
+      this.y.current = e.pageY
+    }
+  }
+
+  onMouseup(e) {
+    if (this.target.dataset.resize && this.isResizing) {
+      console.log('stop resizing', this.x, this.y)
+      this.isResizing = false
+
+      if (this.target.dataset.resize === 'row') {
+        const row = this.target.closest('.row')
+        const newHeight = this.y.current - this.y.start + this.target.closest('.row').offsetHeight
+        row.style.height = `${newHeight}px`
+      }
+      if (this.target.dataset.resize === 'col') {
+        console.log('col')
+      }
+
+      this.x = { start: 0, current: 0 }
+      this.y = { start: 0, current: 0 }
     }
   }
 }
