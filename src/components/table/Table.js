@@ -1,5 +1,6 @@
 import { ExcelComponent } from '@core/ExcelComponent';
 import { createTable } from './table.template'
+import { dom } from '@core/helpers/dom'
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
@@ -7,53 +8,38 @@ export class Table extends ExcelComponent {
   constructor(root, options) {
     super(root, {
       name: 'Table',
-      listeners: ['mousedown', 'mousemove', 'mouseup']
+      listeners: ['mousedown']
     })
-    this.isResizing = false
-    this.target = null
-    this.x = { start: 0, current: 0 }
-    this.y = { start: 0, current: 0 }
   }
 
   toHTML() {
-    return createTable(50)
+    return createTable(25)
   }
 
-  onMousedown(e) {
-    if (e.target.dataset.resize) {
-      this.isResizing = true
-      this.x.start = e.pageX
-      this.y.start = e.pageY
-      this.target = e.target
-    }
-  }
+  onMousedown(event) {
+    if (event.target.dataset.resize) {
+      const target = dom(event.target)
+      const parent = target.closest('[data-resizeble="resizeble"]')
+      const coords = parent.getCoords()
 
-  onMousemove(e) {
-    if (this.isResizing && this.target?.dataset?.resize) {
-      this.x.current = e.pageX
-      this.y.current = e.pageY
-    }
-  }
-
-  onMouseup(e) {
-    if (this.isResizing && this.target?.dataset?.resize) {
-      this.isResizing = false
-
-      if (this.target.dataset.resize === 'row') {
-        const row = this.target.closest('[data-resizeble="resizeble"]')
-        const newHeight = this.y.current - this.y.start + row.offsetHeight
-        row.style.height = `${newHeight}px`
-      }
-      if (this.target.dataset.resize === 'col') {
-        const col = this.target.closest('[data-resizeble="resizeble"]')
-        const colIndex = col?.dataset?.index
-        const colArray = document.querySelectorAll(`[data-index="${colIndex}"]`)
-        const newWidth = this.x.current - this.x.start + col.offsetWidth
-        colArray.forEach(cell => cell.style.width = `${newWidth}px`)
+      document.onmousemove = e => {
+        if (event.target.dataset.resize === 'row') {
+          const delta = e.pageY - coords.bottom
+          const value = coords.height + delta
+          parent.el.style.height = `${value}px`
+        }
+        if (event.target.dataset.resize === 'col') {
+          const delta = e.pageX - coords.right
+          const value = coords.width + delta
+          const colIndex = parent.dataset.index
+          const colArray = document.querySelectorAll(`[data-index="${colIndex}"]`)
+          colArray.forEach(cell => cell.style.width = `${value}px`)
+        }
       }
 
-      this.x = { start: 0, current: 0 }
-      this.y = { start: 0, current: 0 }
+      document.onmouseup = () => {
+        document.onmousemove = null
+      }
     }
   }
 }
