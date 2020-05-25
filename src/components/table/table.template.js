@@ -8,7 +8,7 @@ function toCell(_, index) {
 
 function toColumn(el, index) {
   return `
-    <div class='column' data-index=${index}>
+    <div class='column' data-resizeble='resizeble' data-index=${index}>
       ${el}
       <div class='col-resize' data-resize='col'></div>
     </div>
@@ -18,7 +18,7 @@ function toColumn(el, index) {
 function createRow(index, content) {
   const resizeElement = index ? `<div class='row-resize' data-resize='row'></div>` : ''
   return `
-    <div class='row'>
+    <div class='row' data-resizeble='resizeble'>
       <div class='row-info'>
         ${ index || '' }
         ${ resizeElement }

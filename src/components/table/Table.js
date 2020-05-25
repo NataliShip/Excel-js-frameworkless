@@ -40,14 +40,15 @@ export class Table extends ExcelComponent {
       this.isResizing = false
 
       if (this.target.dataset.resize === 'row') {
-        const row = this.target.closest('.row')
-        const newHeight = this.y.current - this.y.start + this.target.closest('.row').offsetHeight
+        const row = this.target.closest('[data-resizeble="resizeble"]')
+        const newHeight = this.y.current - this.y.start + row.offsetHeight
         row.style.height = `${newHeight}px`
       }
       if (this.target.dataset.resize === 'col') {
-        const colIndex = this.target.closest('.column')?.dataset?.index
+        const col = this.target.closest('[data-resizeble="resizeble"]')
+        const colIndex = col?.dataset?.index
         const colArray = document.querySelectorAll(`[data-index="${colIndex}"]`)
-        const newWidth = this.x.current - this.x.start + this.target.closest('.column').offsetWidth
+        const newWidth = this.x.current - this.x.start + col.offsetWidth
         colArray.forEach(cell => cell.style.width = `${newWidth}px`)
       }
 
