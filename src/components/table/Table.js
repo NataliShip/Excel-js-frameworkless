@@ -21,6 +21,7 @@ export class Table extends ExcelComponent {
       const target = dom(event.target)
       const parent = target.closest('[data-resizeble="resizeble"]')
       const coords = parent.getCoords()
+      const colArray = this.root.findAll(`[data-index="${parent.dataset.index}"]`)
 
       document.onmousemove = e => {
         if (event.target.dataset.resize === 'row') {
@@ -31,8 +32,6 @@ export class Table extends ExcelComponent {
         if (event.target.dataset.resize === 'col') {
           const delta = e.pageX - coords.right
           const value = coords.width + delta
-          const colIndex = parent.dataset.index
-          const colArray = document.querySelectorAll(`[data-index="${colIndex}"]`)
           colArray.forEach(cell => cell.style.width = `${value}px`)
         }
       }

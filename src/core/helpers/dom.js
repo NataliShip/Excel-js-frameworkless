@@ -3,7 +3,6 @@ class Dom {
     this.el = typeof selector === 'string'
       ? document.querySelector(selector)
       : selector
-    this.dataset = this.el.dataset
   }
 
   html(html) {
@@ -46,8 +45,16 @@ class Dom {
     return dom(this.el.closest(selector))
   }
 
+  get dataset() {
+    return this.el.dataset
+  }
+
   getCoords() {
     return this.el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.el.querySelectorAll(selector)
   }
 }
 
