@@ -19,20 +19,21 @@ export class Table extends ExcelComponent {
   onMousedown(event) {
     if (event.target.dataset.resize) {
       const target = dom(event.target)
+      const type = event.target.dataset.resize
       const parent = target.closest('[data-resizeble="resizeble"]')
       const coords = parent.getCoords()
       const colArray = this.root.findAll(`[data-index="${parent.dataset.index}"]`)
 
       document.onmousemove = e => {
-        if (event.target.dataset.resize === 'row') {
+        if (type === 'row') {
           const delta = e.pageY - coords.bottom
           const value = coords.height + delta
-          parent.el.style.height = `${value}px`
+          parent.css({height: `${value}px`})
         }
-        if (event.target.dataset.resize === 'col') {
+        if (type === 'col') {
           const delta = e.pageX - coords.right
           const value = coords.width + delta
-          colArray.forEach(cell => cell.style.width = `${value}px`)
+          colArray.forEach(cell => dom(cell).css({width: `${value}px`}))
         }
       }
 
