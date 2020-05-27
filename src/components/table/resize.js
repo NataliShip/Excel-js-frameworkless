@@ -12,7 +12,7 @@ export function resize(event, root) {
       opacity: 1
     })
 
-    const line = dom.create('div')
+    const line = dom.create('div', 'line')
     root.append(line)
 
     document.onmousemove = e => {
@@ -25,12 +25,10 @@ export function resize(event, root) {
           bottom: `${-delta - 4}px`
         })
         line.css({
-          position: 'absolute',
           top: `${e.pageY - root.getCoords().top}px`,
           left: '0',
           height: '1px',
-          width: '100vw',
-          background: '#3c74ff'
+          width: '100vw'
         })
       }
       if (type === 'col') {
@@ -42,12 +40,10 @@ export function resize(event, root) {
           right: `${-delta - 4}px`
         })
         line.css({
-          position: 'absolute',
           top: '0',
           left: `${e.pageX}px`,
           height: '100vh',
-          width: '1px',
-          background: '#3c74ff'
+          width: '1px'
         })
       }
     }
