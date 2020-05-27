@@ -19,6 +19,10 @@ class Dom {
     return this
   }
 
+  delete() {
+    this.el.remove()
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node.el
@@ -58,9 +62,7 @@ class Dom {
   }
 
   css(styles = {}) {
-    Object.entries(styles).forEach(([key, value]) => {
-      this.el.style[key] = value
-    })
+    Object.assign(this.el.style, styles)
   }
 }
 
