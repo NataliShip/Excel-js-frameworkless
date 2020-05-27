@@ -19,6 +19,10 @@ class Dom {
     return this
   }
 
+  delete() {
+    this.el.remove()
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node.el
@@ -39,6 +43,26 @@ class Dom {
 
   remove(eventType, callback) {
     this.el.removeEventListener(eventType, callback)
+  }
+
+  closest(selector) {
+    return dom(this.el.closest(selector))
+  }
+
+  get dataset() {
+    return this.el.dataset
+  }
+
+  getCoords() {
+    return this.el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.el.querySelectorAll(selector)
+  }
+
+  css(styles = {}) {
+    Object.assign(this.el.style, styles)
   }
 }
 

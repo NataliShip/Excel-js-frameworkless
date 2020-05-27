@@ -5,6 +5,7 @@
   top: $header-height + $toolbar-height + $formula-height
   overflow-x: auto
   padding-bottom: 2px
+  user-select: none
 
   & .row
     display: flex
@@ -12,6 +13,7 @@
     height: $row-height
 
   & .row-info
+    position: relative
     display: flex
     justify-content: center
     align-items: center
@@ -25,6 +27,7 @@
     display: flex
 
   & .column
+    position: relative
     display: flex
     justify-content: center
     align-items: center
@@ -50,5 +53,34 @@
 
     &.selected
       border: none
-      outline: 2px solid #3c74ff
+      outline: 2px solid $blue-color
       z-index: 2
+
+  & .col-resize
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 4px
+    opacity: 0
+    background: $blue-color
+    z-index: 100
+
+    &:hover
+      opacity: 1 !important
+      cursor: col-resize
+      transition: opacity .7s ease
+
+  & .row-resize
+    @extend .col-resize
+    height: 4px
+    left: 0
+    top: unset
+    width: unset
+    &:hover
+      cursor: row-resize
+
+.line
+  background: #3c74ff
+  position: absolute
+
