@@ -6,7 +6,7 @@ export function resize(event, root) {
     const type = event.target.dataset.resize
     const parent = target.closest('[data-resizeble="resizeble"]')
     const coords = parent.getCoords()
-    let value = 0
+    let value
 
     target.css({
       opacity: 1
