@@ -1,14 +1,20 @@
 import { CODES } from '@core/helpers/constants'
 
-function toCell(_, index) {
-  return `
-    <div class='cell' data-index=${index} contenteditable></div>
+function toCell(row) {
+  return (_, col) => `
+    <div
+      class='cell' 
+      data-col=${col}
+      data-type='cell'
+      data-id="${row}:${col}"
+      contenteditable
+    ></div>
   `
 }
 
-function toColumn(el, index) {
+function toColumn(el, col) {
   return `
-    <div class='column' data-resizeble='resizeble' data-index=${index}>
+    <div class='column' data-resizeble='resizeble' data-col=${col}>
       ${el}
       <div class='col-resize' data-resize='col'></div>
     </div>
@@ -44,13 +50,13 @@ export function createTable(rowsCount = 20) {
 
   rows.push(createRow(null, cols))
 
-  for (let i = 0; i < rowsCount; i += 1) {
+  for (let row = 0; row < rowsCount; row += 1) {
     const cells = new Array(colsCount)
         .fill('')
-        .map(toCell)
+        .map(toCell(row))
         .join('')
 
-    rows.push(createRow(i + 1, cells))
+    rows.push(createRow(row + 1, cells))
   }
 
   return rows.join('')

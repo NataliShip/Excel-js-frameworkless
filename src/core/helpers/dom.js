@@ -61,8 +61,20 @@ class Dom {
     return this.el.querySelectorAll(selector)
   }
 
+  find(selector) {
+    return dom(this.el.querySelector(selector))
+  }
+
   css(styles = {}) {
     Object.assign(this.el.style, styles)
+  }
+
+  addClass(className) {
+    this.el.classList.add(className)
+  }
+
+  removeClass(className) {
+    this.el.classList.remove(className)
   }
 }
 

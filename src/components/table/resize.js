@@ -58,7 +58,7 @@ export function resize(event, root) {
       parent.css({height: `${value}px`})
     }
     if (type === 'col') {
-      root.findAll(`[data-index="${parent.dataset.index}"]`)
+      root.findAll(`[data-col="${parent.dataset.col}"]`)
           .forEach(cell => dom(cell).css({width: `${value}px`}))
     }
 
