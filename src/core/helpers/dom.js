@@ -76,6 +76,14 @@ class Dom {
   removeClass(className) {
     this.el.classList.remove(className)
   }
+
+  id(parse) {
+    if (parse) {
+      const [row, col] = this.id().split(':').map(el => Number(el))
+      return {row, col}
+    }
+    return this.dataset.id
+  }
 }
 
 // static method

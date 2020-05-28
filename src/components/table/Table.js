@@ -1,7 +1,7 @@
 import { ExcelComponent } from '@core/ExcelComponent';
 import { createTable } from './table.template'
 import { resize } from '@/components/table/resize'
-import { shouldResize, isCell } from '@core/helpers/utils'
+import { shouldResize, isCell, matrix } from '@core/helpers/utils'
 import { TableSelection } from '@/components/table/TableSelection'
 import { dom } from '@core/helpers/dom'
 
@@ -31,7 +31,16 @@ export class Table extends ExcelComponent {
 
   onClick(e) {
     if (isCell(e)) {
-      this.selection.select(dom(e.target))
+      const targetEl = dom(e.target)
+      if (e.shiftKey) {
+        const target = targetEl.id(true)
+        const current = this.selection.current.id(true)
+        const cells = matrix(target, current)
+            .map(id => this.root.find(`[data-id="${id}"]`))
+        this.selection.selectGroup(cells)
+      } else {
+        this.selection.select(targetEl)
+      }
     }
   }
 
