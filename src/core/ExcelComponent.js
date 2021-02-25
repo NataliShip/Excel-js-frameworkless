@@ -10,7 +10,6 @@ export class ExcelComponent extends DomListener {
 
   prepare() {}
 
-  // return component template
   toHTML() {
     return ''
   }
